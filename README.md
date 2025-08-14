@@ -181,6 +181,18 @@ The `.claude/commands/` directory contains 12 pre-configured commands that appea
    uv run PRPs/scripts/prp_runner.py --prp my-feature --output-format stream-json
    ```
 
+   #### PRP Runner (Codex CLI)
+   - **`--driver`**: Target CLI (`codex` default, or `claude`).
+   - **`--cli`**: Override executable name (defaults to `codex`/`claude`).
+   - **`--interactive`**: Start chat; prompt is sent via STDIN.
+   - **`--output-format`**: `text` | `json` | `stream-json` for headless runs.
+
+   Examples:
+   - **Interactive (Codex):** `uv run PRPs/scripts/prp_runner.py --prp my-feature --interactive`
+   - **Headless JSON (Codex):** `uv run PRPs/scripts/prp_runner.py --prp my-feature --output-format json`
+   - **Stream JSON (Codex):** `uv run PRPs/scripts/prp_runner.py --prp my-feature --output-format stream-json`
+   - **Claude compatibility:** add `--driver claude` (and optionally `--cli claude`).
+
 2. **Using Claude commands**:
    ```
    /execute-base-prp PRPs/my-feature.md
