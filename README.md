@@ -1,6 +1,14 @@
-# PRP (Product Requirement prompts)
+# PRP (Product Requirement Prompts) — Codex CLI Edition
 
-- A collection of prompts i use in my every day work
+- A curated set of prompts and PRP assets optimized for OpenAI Codex CLI
+
+> Note: This repository is dedicated to Codex CLI usage only. If you are looking for the open-source Codex CLI, see: https://github.com/openai/codex/
+
+---
+
+Acknowledgement and provenance
+- This repository was duplicated and adapted from: https://github.com/Wirasm/PRPs-agentic-eng
+- All credit to the original author for the methodology and materials; this fork adapts usage and tooling for Codex CLI.
 
 ## Video Walkthrough
 
@@ -10,35 +18,15 @@
 
 **Found value in these resources?**
 
-👉 **Buy me a coffee:** https://coff.ee/wirasm
+👉 **Buy him a coffee:** https://coff.ee/wirasm
 
-I spent a considerable amount of time creating these resources and prompts. If you find value in this project, please consider buying me a coffee to support my work.
+He spent a considerable amount of time creating these resources and prompts. If you find value in this project, please consider buying him a coffee to support his work.
 
-That will help me maintain and improve the resources available for free
+That will help him maintain and improve the resources available for free
 
----
+# AI Engineering Resources for Codex CLI
 
-### 🎯 Transform Your Team with AI Engineering Workshops
-
-**Ready to move beyond toy demos to production-ready AI systems?**
-
-👉 **Book a workshop:** https://www.rasmuswiding.com/
-
-✅ **What you'll get:**
-
-- Put your team on a path to become AI power users
-- Learn the exact PRP methodology used by top engineering teams
-- Hands-on training with Claude Code, PRPs, and real codebases
-- From beginner to advanced AI engineering workshops for teams and individuals
-
-💡 **Perfect for:** Engineering teams, Product teams, and developers who want AI that actually works in production
-
-Let's talk!
-Contact me directly at rasmus@widinglabs.com
-
-# AI Engineering Resources for Claude Code
-
-A comprehensive library of assets and context engineering for Agentic Engineering, optimized for Claude Code. This repository provides the Product Requirement Prompt (PRP) methodology, pre-configured commands, and extensive documentation to enable AI-assisted development that delivers production-ready code on the first pass.
+A comprehensive library of assets and context engineering for Agentic Engineering, optimized for OpenAI Codex CLI. This repository provides the Product Requirement Prompt (PRP) methodology, pre-configured command prompts, and documentation to enable AI-assisted development that delivers production-ready code on the first pass.
 
 ## What is PRP?
 
@@ -62,87 +50,53 @@ Precise file paths and content, library versions and library context, code snipp
 
 ## Getting Started
 
-### Option 1: Copy Resources to Your Existing Project
+### Install Codex CLI
 
-1. **Copy the Claude commands** to your project:
+- Codex CLI repository: https://github.com/openai/codex/
+- Quick install examples (see repo for latest):
+  - `npm install -g @openai/codex`
+  - or `brew install codex`
 
-   ```bash
-   # From your project root
-   cp -r /path/to/PRPs-agentic-eng/.claude/commands .claude/
-   ```
+Then verify installation:
 
-2. **Copy the PRP templates and runner**:
+```bash
+codex --version
+```
 
-   ```bash
-   cp -r /path/to/PRPs-agentic-eng/PRPs/templates PRPs/
-   cp -r /path/to/PRPs-agentic-eng/PRPs/scripts PRPs/
-   cp /path/to/PRPs-agentic-eng/PRPs/README.md PRPs/
-   ```
+### Using pre-configured prompts with `cx` / `cx.ps1`
 
-3. **Copy AI documentation** (optional but recommended):
-   ```bash
-   cp -r /path/to/PRPs-agentic-eng/PRPs/ai_docs PRPs/
-   ```
+This repo ships helper launchers that feed prompts from `.codex/commands/**` into Codex CLI.
 
-### Option 2: Clone and Start a New Project
+- Linux/macOS:
+  - List available prompts: `./cx --list`
+  - Run a prompt: `./cx prp-base-create "Your feature idea"`
+- Windows (PowerShell):
+  - List prompts: `./cx.ps1 --list`
+  - Run a prompt: `./cx.ps1 prp-base-create "Your feature idea"`
 
-1. **Clone this repository**:
+Notes
+- The leading slash in the command name maps to files under `.codex/commands` or `%USERPROFILE%/.codex/commands`.
+- Arguments after the command are passed to the prompt and can be referenced via `$ARGUMENTS` in the prompt files.
+- The scripts will launch `codex` with a suggested approval mode.
 
-   ```bash
-   git clone https://github.com/Wirasm/PRPs-agentic-eng.git
-   cd PRPs-agentic-eng
-   ```
+## Using Codex Commands
 
-2. **Create your project structure**:
+The `.codex/commands/` directory contains pre-configured prompt files organized by topic (PRPs, reviews, Git, utilities). Use the `cx` launchers to run them from your terminal.
 
-   ```bash
-   # Example for a Python project
-   mkdir -p src/tests
-   touch src/__init__.py
-   touch pyproject.toml
-   touch CLAUDE.md
-   ```
+Examples
 
-3. **Initialize with UV** (for Python projects):
-   ```bash
-   uv venv
-   uv sync
-   ```
+- Generate a comprehensive PRP:
+  - macOS/Linux: `./cx prp-base-create "User authentication with OAuth2"`
+  - Windows: `./cx.ps1 prp-base-create "User authentication with OAuth2"`
+- Execute a PRP against the codebase:
+  - macOS/Linux: `./cx prp-base-execute PRPs/my-feature.md`
+  - Windows: `./cx.ps1 prp-base-execute PRPs/my-feature.md`
+-
+List all available prompts:
 
-## Using Claude Commands
-
-The `.claude/commands/` directory contains 12 pre-configured commands that appear as slash commands in Claude Code.
-
-### Available Commands
-
-1. **PRP Creation & Execution**:
-   - `/create-base-prp` - Generate comprehensive PRPs with research
-   - `/execute-base-prp` - Execute PRPs against codebase
-   - `/planning-create` - Create planning documents with diagrams
-   - `/spec-create-adv` - Advanced specification creation
-   - `/spec-execute` - Execute specifications
-
-2. **Code Review & Refactoring**:
-   - `/review-general` - General code review
-   - `/review-staged-unstaged` - Review git changes
-   - `/refactor-simple` - Simple refactoring tasks
-
-3. **Git & GitHub**:
-   - `/create-pr` - Create pull requests
-
-4. **Utilities**:
-   - `/prime-core` - Prime Claude with project context
-   - `/onboarding` - Onboarding process for new team members
-   - `/debug` - Debugging workflow
-
-### How to Use Commands
-
-1. **In Claude Code**, type `/` to see available commands
-2. **Select a command** and provide arguments when prompted
-3. **Example usage**:
-   ```
-   /create-base-prp user authentication system with OAuth2
-   ```
+```bash
+./cx --list   # or on Windows: ./cx.ps1 --list
+```
 
 ## Using PRPs
 
@@ -161,41 +115,18 @@ The `.claude/commands/` directory contains 12 pre-configured commands that appea
    - Implementation Blueprint: Tasks and pseudocode
    - Validation Loop: Executable tests
 
-3. **Or use Claude to generate one**:
-   ```
-   /create-base-prp implement user authentication with JWT tokens
+3. **Or use Codex via `cx` to generate one**:
+   ```bash
+   ./cx prp-base-create "Implement user authentication with JWT tokens"
+   # Windows: ./cx.ps1 prp-base-create "Implement user authentication with JWT tokens"
    ```
 
 ### Executing a PRP
 
-1. **Using the runner script**:
-
+1. **Using Codex commands via `cx`/`cx.ps1`**:
    ```bash
-   # Interactive mode (recommended for development)
-   uv run PRPs/scripts/prp_runner.py --prp my-feature --interactive
-
-   # Headless mode (for CI/CD)
-   uv run PRPs/scripts/prp_runner.py --prp my-feature --output-format json
-
-   # Streaming JSON (for real-time monitoring)
-   uv run PRPs/scripts/prp_runner.py --prp my-feature --output-format stream-json
-   ```
-
-   #### PRP Runner (Codex CLI)
-   - **`--driver`**: Target CLI (`codex` default, or `claude`).
-   - **`--cli`**: Override executable name (defaults to `codex`/`claude`).
-   - **`--interactive`**: Start chat; prompt is sent via STDIN.
-   - **`--output-format`**: `text` | `json` | `stream-json` for headless runs.
-
-   Examples:
-   - **Interactive (Codex):** `uv run PRPs/scripts/prp_runner.py --prp my-feature --interactive`
-   - **Headless JSON (Codex):** `uv run PRPs/scripts/prp_runner.py --prp my-feature --output-format json`
-   - **Stream JSON (Codex):** `uv run PRPs/scripts/prp_runner.py --prp my-feature --output-format stream-json`
-   - **Claude compatibility:** add `--driver claude` (and optionally `--cli claude`).
-
-2. **Using Claude commands**:
-   ```
-   /execute-base-prp PRPs/my-feature.md
+   ./cx prp-base-execute PRPs/my-feature.md
+   # Windows: ./cx.ps1 prp-base-execute PRPs/my-feature.md
    ```
 
 ### PRP Best Practices
@@ -276,23 +207,21 @@ curl -X POST http://localhost:8000/auth/login \
 
 ```
 your-project/
-|-- .claude/
-|   |-- commands/          # Claude Code commands
-|   `-- settings.json      # Tool permissions
+|-- .codex/
+|   `-- commands/          # Codex CLI prompt files
 |-- PRPs/
 |   |-- templates/         # PRP templates
-|   |-- scrips/           # PRP runner
-|   |-- ai_docs/          # Library documentation
-|   |-- completed/        # Finished PRPs
-|   `-- *.md              # Active PRPs
-|-- CLAUDE.md             # Project-specific guidelines
-|-- src/                  # Your source code
-`-- tests/                # Your tests
+|   |-- ai_docs/           # Curated documentation for agents
+|   |-- completed/         # Finished PRPs
+|   `-- *.md               # Active PRPs
+|-- AGENTS.md (optional)    # Project-specific Codex guidance
+|-- src/                   # Your source code
+`-- tests/                 # Your tests
 ```
 
-## Setting Up CLAUDE.md
+## Setting Up AGENTS.md
 
-Create a `CLAUDE.md` file in your project root with:
+Create a `AGENTS.md` file in your project root with:
 
 1. **Core Principles**: KISS, YAGNI, etc.
 2. **Code Structure**: File size limits, function length
@@ -301,11 +230,11 @@ Create a `CLAUDE.md` file in your project root with:
 5. **Style Conventions**: Language-specific guidelines
 6. **Development Commands**: How to run tests, lint, etc.
 
-See the example CLAUDE.md in this repository for a comprehensive template.
+See the example AGENTS.md in this repository for a comprehensive template.
 
 ## Advanced Usage
 
-### Running Multiple Claude Sessions
+### Running Multiple Codex Sessions
 
 Use Git worktrees for parallel development:
 
@@ -313,30 +242,21 @@ Use Git worktrees for parallel development:
 git worktree add -b feature-auth ../project-auth
 git worktree add -b feature-api ../project-api
 
-# Run Claude in each worktree
-cd ../project-auth && claude
-cd ../project-api && claude
+# Run Codex in each worktree
+cd ../project-auth && codex
+cd ../project-auth && codex
 ```
 
 ### CI/CD Integration
 
-Use the PRP runner in headless mode:
-
-```yaml
-# GitHub Actions example
-- name: Execute PRP
-  run: |
-    uv run PRPs/scripts/prp_runner.py \
-      --prp implement-feature \
-      --output-format json > result.json
-```
+For non-interactive or CI usage, consult Codex CLI’s “Non-interactive / CI mode” documentation and adapt your workflow accordingly. A common approach is to call Codex with a specific prompt file from `.codex/commands/` and set the desired approval/sandbox flags per your CI needs. See `PRPs/ai_docs/codex_cli_readme.md` for details.
 
 ### Custom Commands
 
-Create your own commands in `.claude/commands/`:
+Create your own commands in `.codex/commands/`:
 
 ```markdown
-# .claude/commands/my-command.md
+# .codex/commands/my-command.md
 
 # My Custom Command
 
@@ -349,19 +269,47 @@ Do something specific to my project.
 
 ## Resources Included
 
-### Documentation (PRPs/ai_docs/)
+## Documentation (PRPs/ai_docs/)
 
-- `cc_base.md` - Core Claude Code documentation
-- `cc_actions_sdk.md` - GitHub Actions and SDK integration
-- `cc_best_practices.md` - Best practices guide
-- `cc_settings.md` - Configuration and security
-- `cc_tutorials.md` - Step-by-step tutorials
+Purpose
+- Central place for curated, high-signal documentation that Codex can read directly from your workspace.
+- Includes Codex CLI quickstart and reference, plus framework- or language-specific docs you want agents to consult.
+
+What’s inside
+- `PRPs/ai_docs/codex_cli_readme.md`: Upstream Codex CLI README content for local reference.
+- `PRPs/ai_docs/codex_cli_help.md`: Codex CLI usage tips and examples.
+- `PRPs/ai_docs/codex_documentation.md`: Additional operational notes and scenarios.
+
+How to use with PRPs
+- In your PRP’s “All Needed Context”, reference files explicitly so Codex prioritizes them:
+
+  ```markdown
+  ## All Needed Context
+  - file: PRPs/ai_docs/codex_cli_readme.md
+    why: Exact Codex CLI behavior and flags
+  - file: PRPs/ai_docs/codex_cli_help.md
+    why: Quick usage reminders while executing tasks
+  - file: PRPs/ai_docs/codex_documentation.md
+    why: Known gotchas and environment considerations
+  ```
+
+Notes
+- The `cx`/`cx.ps1` scripts do not auto-inject file contents; listing files in PRPs prompts Codex to open and use them during execution.
+- Keep docs concise and scoped; prefer exact file paths and short excerpts over broad links.
+
+---
+
+Additional references
+- Codex CLI repository: https://github.com/openai/codex/
+- Source repository this work adapts: https://github.com/Wirasm/PRPs-agentic-eng
 
 ### Templates (PRPs/templates/)
 
-- `prp_base.md` - Comprehensive PRP template with validation
-- `prp_spec.md` - Specification template
-- `prp_planning_base.md` - Planning template with diagrams
+- `prp_base.md`: Comprehensive base PRP with Goal/Why/What, All Needed Context, Implementation Blueprint, and Validation Loop.
+- `prp_base_typescript.md`: Base PRP adapted for TypeScript/Node projects with TS-centric patterns.
+- `prp_planning.md`: Planning-focused template covering scope, milestones, dependencies, and deliverables.
+- `prp_spec.md`: Specification template for APIs/contracts with acceptance criteria.
+- `prp_task.md`: Lightweight task template for small, well-bounded changes.
 
 ### Example PRP
 
@@ -373,10 +321,10 @@ MIT License
 
 ## Support
 
-I spent a considerable amount of time creating these resources and prompts. If you find value in this project, please consider buying me a coffee to support my work.
+He spent a considerable amount of time creating these resources and prompts. If you find value in this project, please consider buying him a coffee to support his work.
 
-👉 **Buy me a coffee:** https://coff.ee/wirasm
+👉 **Buy him a coffee:** https://coff.ee/wirasm
 
 ---
 
-Remember: The goal is one-pass implementation success through comprehensive context. Happy coding with Claude Code!
+Remember: The goal is one-pass implementation success through comprehensive context. Happy coding with Codex!
