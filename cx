@@ -1,0 +1,50 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+usage() { echo "Usage: cx /<nom-fichier-sans-ext> [args...] | cx --list"; exit 1; }
+
+list_all() {
+  local roots=( ".codex/commands" "$HOME/.codex/commands" )
+  for r in "${roots[@]}"; do
+    [[ -d "$r" ]] || continue
+    find "$r" -type f \( -name "*.md" -o -name "*.txt" -o -name "*.prompt" \) \
+      -exec basename {} \; \
+      | sed -E 's/\.(md|txt|prompt)$//'
+  done | sort -u
+}
+
+[[ "${1-}" == "--list" ]] && { list_all; exit 0; }
+[[ $# -ge 1 ]] || usage
+[[ "$1" == /* ]] || usage
+
+cmd="${1#/}" # "/test" -> "test"
+shift
+args="${*:-}"
+
+roots=( ".codex/commands" "$HOME/.codex/commands" )
+matches=()
+for r in "${roots[@]}"; do
+  [[ -d "$r" ]] || continue
+  while IFS= read -r p; do
+    matches+=( "$p" )
+  done < <(find "$r" -type f \( -name "$cmd.md" -o -name "$cmd.txt" -o -name "$cmd.prompt" \))
+done
+
+if ((${#matches[@]}==0)); then
+  echo "❌ Commande '$cmd' introuvable dans .codex/commands/** ou ~/.codex/commands/**"
+  exit 1
+fi
+
+if ((${#matches[@]}>1)); then
+  echo "❌ Plusieurs correspondances pour '$cmd' :"
+  printf ' - %s\n' "${matches[@]}"
+  exit 1
+fi
+
+file="${matches[0]}"
+
+prompt="$(cat "$file")"
+prompt="${prompt//\$ARGUMENTS/$args}"
+prompt="${prompt//\$CWD/$PWD}"
+
+exec codex -- --approval-mode suggest "$prompt"
