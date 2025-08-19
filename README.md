@@ -69,10 +69,10 @@ This repo ships helper launchers that feed prompts from `.codex/commands/**` int
 
 - Linux/macOS:
   - List available prompts: `./cx --list`
-  - Run a prompt: `./cx prp-base-create "Your feature idea"`
+  - Run a prompt: `./cx /prp-base-create "Your feature idea"`
 - Windows (PowerShell):
   - List prompts: `./cx.ps1 --list`
-  - Run a prompt: `./cx.ps1 prp-base-create "Your feature idea"`
+  - Run a prompt: `./cx.ps1 /prp-base-create "Your feature idea"`
 
 Notes
 - The leading slash in the command name maps to files under `.codex/commands` or `%USERPROFILE%/.codex/commands`.
@@ -86,11 +86,11 @@ The `.codex/commands/` directory contains pre-configured prompt files organized 
 Examples
 
 - Generate a comprehensive PRP:
-  - macOS/Linux: `./cx prp-base-create "User authentication with OAuth2"`
-  - Windows: `./cx.ps1 prp-base-create "User authentication with OAuth2"`
+  - macOS/Linux: `./cx /prp-base-create "User authentication with OAuth2"`
+  - Windows: `./cx.ps1 /prp-base-create "User authentication with OAuth2"`
 - Execute a PRP against the codebase:
-  - macOS/Linux: `./cx prp-base-execute PRPs/my-feature.md`
-  - Windows: `./cx.ps1 prp-base-execute PRPs/my-feature.md`
+  - macOS/Linux: `./cx /prp-base-execute PRPs/my-feature.md`
+  - Windows: `./cx.ps1 /prp-base-execute PRPs/my-feature.md`
 -
 List all available prompts:
 
@@ -117,16 +117,16 @@ List all available prompts:
 
 3. **Or use Codex via `cx` to generate one**:
    ```bash
-   ./cx prp-base-create "Implement user authentication with JWT tokens"
-   # Windows: ./cx.ps1 prp-base-create "Implement user authentication with JWT tokens"
+   ./cx /prp-base-create "Implement user authentication with JWT tokens"
+   # Windows: ./cx.ps1 /prp-base-create "Implement user authentication with JWT tokens"
    ```
 
 ### Executing a PRP
 
 1. **Using Codex commands via `cx`/`cx.ps1`**:
    ```bash
-   ./cx prp-base-execute PRPs/my-feature.md
-   # Windows: ./cx.ps1 prp-base-execute PRPs/my-feature.md
+   ./cx /prp-base-execute PRPs/my-feature.md
+   # Windows: ./cx.ps1 /prp-base-execute PRPs/my-feature.md
    ```
 
 ### PRP Best Practices
